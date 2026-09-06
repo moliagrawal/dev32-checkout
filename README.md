@@ -4,6 +4,14 @@ A single-signature batched checkout application built on Base Sepolia using **Pr
 
 ---
 
+## Deliverable Configuration Details
+- **Testnet:** Base Sepolia
+- **Test Token:** USDC (or any standard ERC-20 test token deployed on Base Sepolia)
+- **Account Implementation:** Privy Smart Wallets (embedded Ethereum wallets upgraded to Smart Accounts under the hood).
+- **Sponsorship Configuration:** Gas sponsorship is handled automatically by configuring a Paymaster and Gas Policies in the Privy Dashboard (under Smart Wallets -> Sponsorship), which abstracts away all native token (ETH) requirements for the buyer.
+
+---
+
 ## 1. Key Features & Architecture
 
 - **Single User Approval / Batched Execution**: Combines ERC-20 `approve(CHECKOUT_CONTRACT, amount)` and `Checkout.pay(orderId, token, amount)` into a single `useSmartWallets().client.sendTransaction({ calls: [...] })` call.
