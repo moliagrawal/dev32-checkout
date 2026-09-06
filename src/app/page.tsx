@@ -3,11 +3,12 @@
 export const dynamic = 'force-dynamic';
 
 import { usePrivy } from '@privy-io/react-auth';
+import { useSmartWallets } from '@privy-io/react-auth/smart-wallets';
 import { CheckoutCard } from '@/components/CheckoutCard';
 
 export default function Home() {
-  const { login, logout, authenticated, user } = usePrivy();
-  const currentWallet = user?.linkedAccounts.find((a) => a.type === 'wallet');
+  const { login, logout, authenticated } = usePrivy();
+  const { client: smartWallet } = useSmartWallets();
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12">
@@ -32,7 +33,7 @@ export default function Home() {
           {authenticated ? (
             <div className="flex items-center space-x-3">
               <span className="text-xs font-mono bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300">
-                {currentWallet?.address.slice(0, 6)}...{currentWallet?.address.slice(-4)}
+                {smartWallet?.account?.address ? `${smartWallet.account.address.slice(0, 6)}...${smartWallet.account.address.slice(-4)}` : 'Loading...'}
               </span>
               <button
                 onClick={logout}
